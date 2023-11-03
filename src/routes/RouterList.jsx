@@ -26,7 +26,11 @@ export const RouterList = () => {
           <Dashboard/>
         </TokenProtected>
         }/>
-          <Route path='/UserProfil' element={<UserProfil/>}/>
+          <Route path='/UserProfil' element={
+                   <TokenProtected>
+          <UserProfil/>
+          </TokenProtected>
+          }/>
         <Route path='/PopulerMovie' element={
           <TokenProtected>
             <PopulerMovie/>
