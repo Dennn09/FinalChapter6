@@ -10,7 +10,7 @@ const dataMoviePopulerSlice = createSlice({
     initialState ,
     reducers :{
         setData: (state, action) => {
-            state.data = action.payload;
+            state.setdata = action.payload;
           }
         
     }

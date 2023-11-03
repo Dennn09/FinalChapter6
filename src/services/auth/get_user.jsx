@@ -5,15 +5,10 @@ import http2 from "../../utils/http2";
 import { toast } from 'react-hot-toast'; // Import toast from react-hot-toast
 
 
-export const ReduxGetuser = async ({queryKey}) => {
-  const [_key] = queryKey;
-  const { data } = await http2.get(_key)
-  return data
+export const ReduxGetuser = async () => {
+  return await http2.get(API_ENDPOINT.GET_USER)
 }
 
-// export const LoginRedux = async (input) => {
-//   return await http2.post(API_ENDPOINT.LOGIN, input)
-// }
 
 // Untuk menghit API
 const fetchDataUser = async ({ queryKey }) => {
@@ -23,8 +18,9 @@ const fetchDataUser = async ({ queryKey }) => {
     // apa yang ada di dalam then adalah respon dari api yang berhasil
     // di dalam then kita bisa me manipulasi data yang ingin kita sampikan 
    
+    console.log(value, "tesssss11")
 
-    return data  
+    return value  
 
   }).catch((err) => {
     // akan di jalankan ketika terjadi eror dalam api 

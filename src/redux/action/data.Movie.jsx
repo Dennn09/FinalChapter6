@@ -1,17 +1,38 @@
+import { reduxDataDetailMovie } from "../../services/API-BINAR/get-data-detail-binar";
 import { reduxDataMoviePopuler } from "../../services/API-BINAR/get-data-movie-populer-binar";
+import { reduxMovieSearch } from "../../services/API-BINAR/get-data-movie-search-binar";
+import { setDataDetail } from "../reducers/movie/DataDetail";
 import { setData } from "../reducers/movie/DataMoviePopuler";
+import { setDataSearch } from "../reducers/movie/DataSearch";
 
 
 export const dataMovie = () => (dispatch) => {
     return reduxDataMoviePopuler().then((result) => {      
-        console.log(result)
+        console.log(result, "result")
         dispatch(setData(result))
-        return true
     }).catch((err) => {
         
     });
 }
 
+
+export const dataSearchRedux = (query) => (dispatch) => {
+    return reduxMovieSearch(query).then((result) => {
+       dispatch(setDataSearch(result)) 
+       console.log(result, "sdaaaaa")
+    }).catch((err) => {
+        
+    });
+}
+
+export const dataDetailRedux = (id) => (dispatch) => {
+    return reduxDataDetailMovie(id).then((result) => {
+        console.log(result, "dataDetail")
+        dispatch(setDataDetail(result))
+    }).catch((err) => {
+        
+    });
+}
 
 
 

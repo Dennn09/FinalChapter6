@@ -1,16 +1,33 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useMovieDataQuerySearch } from '../services/User/get-data-movie-search'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux';
+import { dataSearchRedux } from '../redux/action/data.Movie';
 
 export const HasilSearch = () => {
   const location = useLocation();
-  const { query } = location.state;
+  const { query: datass } = location.state;
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   const { data: search , isLoading } = useMovieDataQuerySearch({
-    query: query
+    query: datass
   });
 
+    const dataSearch = useSelector((state) => state.reduxdataSearch.dataSearch)
+
+      console.log(dataSearch, "dataSearch");
+      console.log(dataSearch?.data?.data, "dataSearch2");
+    
+
+    const getDataS = () =>{
+      dispatch(dataSearchRedux(datass))
+    }
+    useEffect(() => {
+      getDataS()
+    }, [])
+    
+
+    
   if (isLoading) {
     return <p>Loading...</p>; 
   }
@@ -18,7 +35,7 @@ export const HasilSearch = () => {
   console.log(search)
 
   const renderMovie = () => {
-    if (!search.results || search.results.length === 0) {
+    if (!dataSearch?.data?.data || dataSearch?.data?.data.length === 0) {
       return <p>No results found.</p>;
     }
     return search?.results?.map((value) => (
@@ -44,7 +61,7 @@ export const HasilSearch = () => {
   
     <div className=' bg-black h-full'>
     <div className='flex justify-between items-center px-20'>
-     <h1 className='text-white text-[2rem] font-bold'>{query}</h1>
+     <h1 className='text-white text-[2rem] font-bold'>{datass}</h1>
      <a href='/dashboard' className='text-white absolute top-2 right-2 bg-red-500 p-2 rounded-full'>Back to Home</a>
  
     </div>

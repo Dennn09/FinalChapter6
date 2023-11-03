@@ -4,6 +4,7 @@ import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { useNavigate } from "react-router-dom";
 import { useMovieDataPopulerQueryBinar } from "../../services/API-BINAR/get-data-movie-populer-binar";
+import { useSelector } from "react-redux";
 
 export const Carasuel2 = (props) => {
   const navigate = useNavigate();
@@ -13,10 +14,14 @@ export const Carasuel2 = (props) => {
     page: PageNow,
   });
 
+  const datamovieredux = useSelector((state) => state.dataMoviePopuler);
+
   console.log(fetchUser, "data");
 
   const renderMovieList = () => {
-    return fetchUser?.data?.map((value) => (
+    const dataToRender = datamovieredux?.setdata?.data?.data
+    
+    return dataToRender?.map((value) => (
       <div
         key={value.id}
         className="w-[100vw] h-[100vh] flex flex-col relative"

@@ -2,6 +2,8 @@ import { useQuery } from "@tanstack/react-query"
 import http from "../../utils/htpp"
 import { API_ENDPOINT } from "../../utils/api-endpoint"
 
+
+
 //unutk nge hit API
 // const fetchDataMovie = async (page) => {
     const fetchDataMovieSearch = async ({queryKey}) => {

@@ -110,8 +110,6 @@ export const Register = () => {
         >
           Register
         </button>
-     
-      
       </div>
       {/* <Toaster position="top-center" reverseOrder={false} /> */}
     </div>

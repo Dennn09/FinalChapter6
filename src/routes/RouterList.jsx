@@ -8,9 +8,9 @@ import { Dashboard } from '../pages/auth/Dashboard'
 import { Render } from '../pages/Render'
 import { Background } from '../assets/components/Background'
 import { HomePage } from '../pages/HomePage'
-import { ReduxPage } from '../pages/redux/ReduxPage'
-import { LoginRedux } from '../pages/LoginRedux'
+
 import TokenProtected from '../assets/components/TokenProtected'
+import { UserProfil } from '../pages/UserProfil'
 // import { Carasuel2 } from '../assets/components/Carasuel2'
 
 export const RouterList = () => {
@@ -18,18 +18,30 @@ export const RouterList = () => {
     <BrowserRouter>
     <Routes>
         {/* <Route path='/' element={<ReduxPage/>}/> */}
-        <Route path='/LoginRedux' element={<LoginRedux/>}/>
         <Route path='/' element={<HomePage/>}/>
-        <Route path='/register' element={<Register/>}/>
         <Route path='/Login' element={<LoginPage/>}/>
+        <Route path='/register' element={<Register/>}/>
         <Route path='/dashboard' element={
         <TokenProtected>
           <Dashboard/>
         </TokenProtected>
         }/>
-        <Route path='/PopulerMovie' element={<PopulerMovie/>}/>
-        <Route path='/HasilSearch' element={<HasilSearch/>}/>
-        <Route path='/Render/:id' element={<Render/>}/>
+          <Route path='/UserProfil' element={<UserProfil/>}/>
+        <Route path='/PopulerMovie' element={
+          <TokenProtected>
+            <PopulerMovie/>
+          </TokenProtected>
+        }/>
+        <Route path='/HasilSearch' element={
+          <TokenProtected>
+            <HasilSearch/>
+          </TokenProtected>
+        }/>
+        <Route path='/Render/:id' element={
+         <TokenProtected>
+           <Render/>
+         </TokenProtected>
+        }/>
         <Route path='/Background' element={<Background/>}/>
     </Routes>
     </BrowserRouter>

@@ -1,13 +1,10 @@
 // import React, { useState } from 'react';
-import { Toaster, toast } from "react-hot-toast";
-import { useGetDataUser } from "../../services/auth/get_user";
-import { CookieStorage, CookieKeys } from "../../utils/cookies"; // Import CookieStorage and CookieKeys
 import { Carasuel2 } from "../../assets/components/Carasuel2";
 import { useEffect, useState } from "react";
 import { useMovieDataPopulerQueryBinar } from "../../services/API-BINAR/get-data-movie-populer-binar";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { LogOut } from "../../redux/action/auth.login";
+import { LogOut, getuserRedux } from "../../redux/action/auth.login";
 import { dataMovie } from "../../redux/action/data.Movie";
 // import SearchImage from '../assets/img/Search.svg'
 
@@ -15,14 +12,11 @@ export const Dashboard = () => {
   const navigate = useNavigate();
   const [dataPopuler, setdataPopuler] = useState(1);
   const DataRedux = useSelector((state) => state.auth);
-
-  // Sekarang Anda memiliki akses ke data Redux di komponen ini
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   // const Data = useSelector((state) => state.makup);
 
-  console.log(DataRedux, "DataRedux")
-  console.log(DataRedux.token, "DataRedux TOken")
-
+  console.log(DataRedux, "DataRedux");
+  console.log(DataRedux.token, "DataRedux TOken");
 
   const { data: fetchUser } = useMovieDataPopulerQueryBinar({
     page: dataPopuler,
@@ -49,9 +43,9 @@ export const Dashboard = () => {
       handleSimpanClick();
     }
   };
-  
+
   const renderDataPupuler4 = () => {
-    const dataToRender = fetchUser?.data?.slice(14, 19); // Batasi hanya 4 data pertama
+    const dataToRender = datamovieredux?.setdata?.data?.data.slice(14, 19);
 
     return dataToRender?.map((value) => (
       <div
@@ -74,32 +68,30 @@ export const Dashboard = () => {
     ));
   };
 
-  const { data: dataToken, isSuccess } = useGetDataUser({});
-
-  if (isSuccess) {
-    toast.success("Login Sukses");
-  }
-
-  console.log(dataToken, "weeeeee");
   const handleLogout = () => {
     dispatch(LogOut());
   };
 
   const datamovieredux = useSelector((state) => state.dataMoviePopuler);
-const getdatamovie = () => {
-  dispatch(dataMovie())
-}
-  console.log(datamovieredux, "datamovieredux")
+  const getUserr = useSelector((state) => state.reduxGetUser);
+  const getdatamovie = () => {
+    dispatch(dataMovie());
+  };
 
+  console.log(datamovieredux, "datamovieredux");
+
+  const getdatauser = () => {
+    dispatch(getuserRedux());
+  };
   useEffect(() => {
-    getdatamovie()
-  }, [])
-  
+    getdatamovie();
+    getdatauser();
+  }, []);
 
-  //  <div>
-  //   <p>Halaman Dashboard</p>
-  //   <button onClick={handleLogout} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[9rem]">Logout</button>
-  // </div>
+  console.log(getUserr, "getUserr1");
+  console.log(getUserr?.dataUser?.data?.data.name, "getUserr2");
+
+  const NamaUser = getUserr?.dataUser?.data?.data.name;
 
   return (
     <div className="bg-[#595959]  items-center flex flex-col space-y-5 top-0 ">
@@ -115,14 +107,15 @@ const getdatamovie = () => {
             onChange={handleSearchInputChange}
             onKeyDown={handleEnterPress}
           />
-          {/* <button className='' onClick={handleSimpanClick}><img src={SearchImage} alt="Search" className="w-[1.5em]" /></button> */}
         </div>
       </div>
       <div className="    h-[35rem] w-[95%]  bg-white  rounded-[1rem] mb-10">
         <div className="pt-4  flex justify-between items-center px-4">
           <h2 className="font-bold text-[1.5rem]">Populer Movie</h2>
           <a
-            href="/PopulerMovie"
+            onClick={() => {
+              navigate("/PopulerMovie");
+            }}
             className="text-red-500 font-semibold text-[1.5em]"
           >
             See All Movie{" "}
@@ -136,10 +129,28 @@ const getdatamovie = () => {
       >
         Logout
       </button>
-      <h1 className="font-bold text-[2em] text-red-600 absolute top-1 left-4">MovieList</h1>
-
+      <div onClick={()=>{navigate("/UserProfil")}} className=" flex  rounded-3xl bg-red-500 hover:bg-red-700  text-white font-bold py-2 px-4  absolute top-1 right-[7rem] ">
+        
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+          />
+        </svg>
+        <div className="ml-2"> {NamaUser}</div>
+      </div>
+      <h1 className="font-bold text-[2em] text-red-600 absolute top-0 left-4">
+        MovieList
+      </h1>
+      {/* <h1>{NamaUser}</h1> */}
     </div>
-    //   <Toaster position="top-center" reverseOrder={false} />
-    // </div>
   );
 };

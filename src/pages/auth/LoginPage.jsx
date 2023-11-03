@@ -35,18 +35,12 @@ export const LoginPage = () => {
   // };
 
   const login =  () => {
-    // const berhasi = await
      dispatch(LoginUserRe(
         {
           email: Email,
           password: Password,
-        }
-        
+        } 
       ))
-      // if(berhasi){
-      //   navigate("/dashboard")
-      // }
-
     }
 
     
@@ -127,7 +121,7 @@ export const LoginPage = () => {
         <h1 className="text-white">
       
           Belum Punya akun?
-          <a className="cursor-pointer" onClick={() => navigate("/register")}>
+          <a className="cursor-pointer text-red-500" onClick={() => navigate("/register")}>
             Register
           </a>
         </h1>

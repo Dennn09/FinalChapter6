@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useMovieDataPopulerQueryBinar } from '../services/API-BINAR/get-data-movie-populer-binar'
+import { useSelector } from 'react-redux'
 export const PopulerMovie = () => {
 
   const [PageNow, setPageNow] = useState(1)
@@ -9,9 +10,12 @@ export const PopulerMovie = () => {
   const {data : fetchUser} = useMovieDataPopulerQueryBinar({
     page : PageNow
   })
+  const datamovieredux = useSelector((state) => state.dataMoviePopuler.setdata.data);
+
+  console.log(datamovieredux, "datamovieredux")
 
   const renderDataPupuler = () => {
-    return fetchUser?.data?.map((value) => (
+    return datamovieredux?.data?.map((value) => (
       <div key={value.id} className='w-[20rem] h-[35rem] mt-5 mx-4 flex flex-col hover:border border-emerald-50  '
       onClick={() => {
         navigate(`/Render/${value.id}`,{
@@ -31,7 +35,7 @@ export const PopulerMovie = () => {
     <div className=' bg-black'>
    <div className=' flex justify-between px-10'>
     <h1 className='text-white text-[2rem] font-bold'>Populer Movie</h1>
-    <a href='/' className='text-white absolute top-2 right-10 bg-red-500 p-2 rounded-full'>Back to Home</a>
+    <a  onClick={()=>{navigate("/dashboard")}} className='text-white absolute top-2 right-10 bg-red-500 p-2 rounded-full'>Back to dashboard</a>
  
    </div>
      <div className='flex flex-wrap justify-center text-center text-white'>

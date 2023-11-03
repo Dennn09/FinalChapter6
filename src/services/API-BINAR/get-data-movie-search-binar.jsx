@@ -3,6 +3,10 @@ import { useQuery } from "@tanstack/react-query"
 import { API_ENDPOINT } from "../../utils/api-endpoint"
 import http2 from "../../utils/http2";
 
+export const reduxMovieSearch = async (query) => {
+    return await http2.get(`${API_ENDPOINT.SEARCH_MOVIE_BINAR}?page=1&query=${query} `)
+}
+
 //unutk nge hit API
 // const fetchDataMovie = async (page) => {
     const fetchDataMovieSearch = async ({queryKey}) => {
